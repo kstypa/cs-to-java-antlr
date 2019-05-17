@@ -40,8 +40,8 @@ USING:         'using';
 VAR:		   'var';
 VOID:          'void';
 
-LOWERCASE:      [a-z];
-UPPERCASE:      [A-Z];
+LOWERCASE:      [a-z]+;
+UPPERCASE:      [A-Z]+;
 DIGIT:          [0-9];
 UNDERSCORE:     '_';
 STRING_LITERAL: '"' Character* '"';

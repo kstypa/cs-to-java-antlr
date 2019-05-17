@@ -31,7 +31,7 @@ integer:                DIGIT+;
 
 floating:               integer '.' integer;
 
-word:                   (LOWERCASE | UPPERCASE)+;
+word:                   (LOWERCASE | UPPERCASE);
 
 identifier:             (word | '_')+ (word | integer | '_')*;
 
