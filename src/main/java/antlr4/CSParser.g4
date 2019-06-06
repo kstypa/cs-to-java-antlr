@@ -110,7 +110,7 @@ parameters:             value (',' value)*;
 
 arithmetic:             add | subtract | multiply | divide;
 
-operand:                (number | identifier) | ('(' (number | identifier) ')');
+operand:                (number | identifier | call) | ('(' (number | identifier | call) ')');
 
 add_operand:            (operand | STRING_LITERAL | call);
 
@@ -121,3 +121,52 @@ subtract:               operand '-' operand ('-' operand)*;
 multiply:               operand '*' operand ('*' operand)*;
 
 divide:                 operand '/' operand ('/' operand)*;
+
+greater_than:           operand '>' operand;
+
+lesser_than:            operand '<' operand;
+
+greater_or_equal:       operand '<=' operand;
+
+lesser_or_equal:        operand '>=' operand;
+
+equal:                  operand '==' operand;
+
+not_equal:              operand '!=' operand;
+
+comparison:             greater_or_equal | lesser_or_equal |greater_than | lesser_than | equal | not_equal;
+
+logical_operand:        (call | identifier |comparison | TRUE | FALSE ) | ( '(' (call | identifier | comparison | TRUE | FALSE ) ')');
+
+conjunction:            logical_operand '&&' logical_operand ( '&&' logical_operand )*;
+
+alternative:            logical_operand '||' logical_operand ( '||' logical_operand )*;
+
+negation:               '!' logical_operand;
+
+logical_operator:       ( conjunction | alternative | negation );
+
+condition:              logical_operand | logical_operator;
+
+while_loop:             WHILE '(' condition ')' ((OPEN_BRACE
+                            command*
+                        CLOSE_BRACE) | command );
+
+
+for_loop:               FOR '(' declaration assignment ';' condition ';' identifier assignment ')' ((OPEN_BRACE
+                                     command*
+                                     CLOSE_BRACE) | command );
+
+if:                     IF '(' condition ')'((OPEN_BRACE
+                                           command*
+                                           CLOSE_BRACE) | command )
+                                           else?;
+
+else:                   ELSE((OPEN_BRACE
+                             command*
+                             CLOSE_BRACE) | command );
+
+foreach:                FOREACH '(' declaration IN identifier ')'((OPEN_BRACE
+                                                   command*
+                                                    CLOSE_BRACE) | command );
+

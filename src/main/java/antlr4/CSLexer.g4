@@ -39,12 +39,15 @@ USHORT:        'ushort';
 USING:         'using';
 VAR:		   'var';
 VOID:          'void';
+WHILE:         'while';
+IN:            'in';
 
 LOWERCASE:      [a-z]+;
 UPPERCASE:      [A-Z]+;
 DIGIT:          [0-9];
 UNDERSCORE:     '_';
 STRING_LITERAL: '"' Character* '"';
+
 
 // operatory, nawiasy, itd.
 OPEN_BRACE:               '{';
