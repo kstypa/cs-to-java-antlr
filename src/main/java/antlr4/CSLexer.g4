@@ -41,6 +41,11 @@ VAR:		   'var';
 VOID:          'void';
 WHILE:         'while';
 IN:            'in';
+SWITCH:        'switch';
+CASE:          'case';
+DEFAULT:       'default';
+CONTINUE:      'continue';
+BREAK:         'break';
 
 LOWERCASE:      [a-z]+;
 UPPERCASE:      [A-Z]+;

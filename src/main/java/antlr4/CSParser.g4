@@ -170,3 +170,15 @@ foreach:                FOREACH '(' declaration IN identifier ')'((OPEN_BRACE
                                                    command*
                                                     CLOSE_BRACE) | command );
 
+switch:                 SWITCH  '(' operand ')' OPEN_BRACE
+                            (CASE value ':' (command)* (BREAK ';') ?)*
+                            (DEFAULT ':'(command)* (BREAK ';'))?
+                            CLOSE_BRACE;
+
+pre_increment:          identifier '++';
+
+post_increment:         '++' identifier;
+
+pre_decrement:          identifier '--';
+
+post_decrement:          '--' identifier;
