@@ -24,10 +24,21 @@ public class CSParserBaseListener implements CSParserListener {
 	private boolean isFloat = false;
 	private boolean isIdentifier = false;
 	private boolean isConstructor = false;
+	private int indents = 0;
 
 	public CSParserBaseListener(BufferedWriter writer, int size){
 		this.writer = writer;
 		this.fileSize = size;
+	}
+
+	private void putIndents() {
+		try {
+			for (int i=0;i<indents;i++) {
+				writer.write("\t");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 
@@ -103,15 +114,7 @@ public class CSParserBaseListener implements CSParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterNamespace(CSParser.NamespaceContext ctx) {
-
-
-		try {
 			isNamespace = true;
-			writer.write("namespace ");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 
 	}
 	/**
@@ -120,12 +123,7 @@ public class CSParserBaseListener implements CSParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitNamespace(CSParser.NamespaceContext ctx) {
-		try {
-			isNamespace = false;
-			writer.write("}\n");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 	}
 	/**
 	 * {@inheritDoc}
@@ -133,6 +131,8 @@ public class CSParserBaseListener implements CSParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterClassdef(CSParser.ClassdefContext ctx) {
+		putIndents();
+		indents++;
 		isClassDefinition = true;
 		if (ctx.getText().contains("static")) isStatic = true;
 	}
@@ -145,6 +145,8 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void exitClassdef(CSParser.ClassdefContext ctx) {
 
 		try {
+			indents --;
+			putIndents();
 			isClassDefinition = false;
 			isStatic = false;
 			writer.write("}\n");
@@ -160,7 +162,7 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void enterClass_access_m(CSParser.Class_access_mContext ctx) {
 
 		try {
-			writer.write(ctx.getText());
+			writer.write(ctx.getText() + " ");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -180,7 +182,7 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void enterAccess_modifier(CSParser.Access_modifierContext ctx) {
 
 		try {
-			writer.write(ctx.getText());
+			writer.write(ctx.getText() + " ");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -282,15 +284,19 @@ public class CSParserBaseListener implements CSParserListener {
 
 		try {
 			if(isStatic){
-				isStatic = false;
 				writer.write("static ");
 			}
 			if(isClassDefinition) {
-				isClassDefinition = false;
 				writer.write("class ");
 			}
 			isIdentifier = true;
-			writer.write(ctx.getText());
+			if(!isNamespace){
+				writer.write(ctx.getText());
+				if(isClassDefinition)writer.write("{\n");
+			}else isNamespace = false;
+			isClassDefinition = false;
+			isStatic = false;
+
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -305,13 +311,6 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void exitIdentifier(CSParser.IdentifierContext ctx) {
 
 
-		try {
-			isIdentifier = false;
-			if(isNamespace || isClassDefinition) writer.write(" { \n");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 	/**
 	 * {@inheritDoc}
@@ -321,7 +320,7 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void enterConstructor_access_m(CSParser.Constructor_access_mContext ctx) {
 
         try {
-            writer.write(ctx.getText());
+            writer.write(ctx.getText()+" ");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -339,7 +338,8 @@ public class CSParserBaseListener implements CSParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterConstructor(CSParser.ConstructorContext ctx) {
-
+		putIndents();
+		indents++;
 	    isConstructor = true;
 
     }
@@ -351,6 +351,8 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void exitConstructor(CSParser.ConstructorContext ctx) {
 
         try {
+        	indents--;
+        	putIndents();
             writer.write("} \n");
         } catch (IOException e) {
             e.printStackTrace();
