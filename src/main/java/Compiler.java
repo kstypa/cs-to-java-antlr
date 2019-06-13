@@ -1,5 +1,3 @@
-package main.java;
-
 import antlr4.CSLexer;
 import antlr4.CSParser;
 import antlr4.CSParserBaseListener;

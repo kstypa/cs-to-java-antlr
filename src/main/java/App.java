@@ -1,5 +1,3 @@
-package main.java;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,22 +9,28 @@ import java.util.stream.Stream;
 public class App {
     public static void main(String[] args) {
 
-        String testCodeFromFile = readFromFile("example1.txt");
-        BufferedWriter bufferedWriter;
-        try {
-            bufferedWriter = prepareOutput("wynik_z_pliku.txt");
-        } catch (IOException ex) {
-            System.out.println("Problem z plikiem wyjsciowym");
-            return;
-        }
+        if (args.length > 0) {
+            String testCodeFromFile = readFromFile(args[0]);
 
-        /*Compiler.compileCode(testCode, bufferedWriter);*/
-        Compiler.compileCode(testCodeFromFile, bufferedWriter);
+            String[] splitName = args[0].split("[.]");
+            String name = splitName[0];
 
-        try {
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            BufferedWriter bufferedWriter;
+            try {
+                bufferedWriter = prepareOutput(name + ".java");
+            } catch (IOException ex) {
+                System.out.println("Problem z plikiem wyjsciowym");
+                return;
+            }
+
+            /*Compiler.compileCode(testCode, bufferedWriter);*/
+            Compiler.compileCode(testCodeFromFile, bufferedWriter);
+
+            try {
+                bufferedWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
