@@ -88,7 +88,7 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void enterUsing(CSParser.UsingContext ctx) {
 
 		try {
-			writer.write("package ");
+			writer.write("import ");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -386,19 +386,43 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterField(CSParser.FieldContext ctx) { }
+	@Override public void enterField(CSParser.FieldContext ctx) {
+
+		putIndents();
+		if(ctx.getText().contains("static")) isStatic = true;
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitField(CSParser.FieldContext ctx) { }
+	@Override public void exitField(CSParser.FieldContext ctx) {
+
+		try {
+			writer.write(";\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaration(CSParser.DeclarationContext ctx) { }
+	@Override public void enterDeclaration(CSParser.DeclarationContext ctx) {
+
+		try {
+			if(isStatic){
+				isStatic = false;
+				writer.write("static ");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
