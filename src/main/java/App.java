@@ -19,7 +19,7 @@ public class App {
             try {
                 bufferedWriter = prepareOutput(name + ".java");
             } catch (IOException ex) {
-                System.out.println("Problem z plikiem wyjsciowym");
+                System.out.println("Problem z plikiem wyjściowym");
                 return;
             }
 
@@ -31,6 +31,9 @@ public class App {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        else {
+            System.out.println("Brak pliku wejściowego");
         }
     }
 

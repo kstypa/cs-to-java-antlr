@@ -31,9 +31,11 @@ integer:                DIGIT+;
 
 floating:               integer '.' integer;
 
-word:                   (LOWERCASE | UPPERCASE);
+//word:                   (LOWERCASE | UPPERCASE);
+//word:                   WORD;
 
-identifier:             (word | '_')+ (word | integer | '_')*;
+//identifier:             (word | '_')+ (word | integer | '_')*;
+identifier:             IDENTIFIER;
 
 constructor_access_m:   (PRIVATE | PUBLIC | STATIC);
 
@@ -87,9 +89,16 @@ paramedefs:             declaration (',' declaration)*;
 return_com:             RETURN value;
 
 command_void:           ( call
+                        | in_decrement
                         | local_declaration assignment?
                         | identifier assignment
                         | delete_object
+                        | if_cond
+                        | for_loop
+                        | foreach
+                        | while_loop
+                        | do_while_loop
+                        | switch_cond
                         );
 
 constructor_command:    command_void ';';
@@ -152,17 +161,21 @@ while_loop:             WHILE '(' condition ')' ((OPEN_BRACE
                             command*
                         CLOSE_BRACE) | command );
 
+do_while_loop:          DO ( (OPEN_BRACE
+                            command*
+                        CLOSE_BRACE) | command )
+                        WHILE '(' condition ')';
 
-for_loop:               FOR '(' declaration assignment ';' condition ';' identifier assignment ')' ((OPEN_BRACE
+for_loop:               FOR '(' declaration assignment ';' condition ';' ( identifier assignment | call | in_decrement ) ')' ((OPEN_BRACE
                                      command*
                                      CLOSE_BRACE) | command );
 
-if:                     IF '(' condition ')'((OPEN_BRACE
+if_cond:                IF '(' condition ')'((OPEN_BRACE
                                            command*
                                            CLOSE_BRACE) | command )
-                                           else?;
+                                           else_cond?;
 
-else:                   ELSE((OPEN_BRACE
+else_cond:             ELSE((OPEN_BRACE
                              command*
                              CLOSE_BRACE) | command );
 
@@ -170,7 +183,7 @@ foreach:                FOREACH '(' declaration IN identifier ')'((OPEN_BRACE
                                                    command*
                                                     CLOSE_BRACE) | command );
 
-switch:                 SWITCH  '(' operand ')' OPEN_BRACE
+switch_cond:            SWITCH  '(' operand ')' OPEN_BRACE
                             (CASE value ':' (command)* (BREAK ';') ?)*
                             (DEFAULT ':'(command)* (BREAK ';'))?
                             CLOSE_BRACE;
@@ -182,3 +195,5 @@ post_increment:         '++' identifier;
 pre_decrement:          identifier '--';
 
 post_decrement:          '--' identifier;
+
+in_decrement:           pre_increment | post_increment | pre_decrement | post_decrement;

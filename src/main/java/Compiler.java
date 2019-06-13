@@ -1,6 +1,6 @@
 import antlr4.CSLexer;
 import antlr4.CSParser;
-import antlr4.CSParserBaseListener;
+import antlr4.CSParserListenerImpl;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -28,7 +28,7 @@ public class Compiler {
     }
 
     private static void generateOutput(BufferedWriter writer, ParseTree tree, int size) {
-        CSParserBaseListener listener = new CSParserBaseListener(writer, size);
+        CSParserListenerImpl listener = new CSParserListenerImpl(writer, size);
         ParseTreeWalker treeWalker = new ParseTreeWalker();
         treeWalker.walk(listener, tree);
     }

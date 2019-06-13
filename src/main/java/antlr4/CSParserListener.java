@@ -1,6 +1,5 @@
-package antlr4;
-
 // Generated from CSParser.g4 by ANTLR 4.7.2
+package antlr4;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -118,16 +117,6 @@ public interface CSParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFloating(CSParser.FloatingContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link CSParser#word}.
-	 * @param ctx the parse tree
-	 */
-	void enterWord(CSParser.WordContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link CSParser#word}.
-	 * @param ctx the parse tree
-	 */
-	void exitWord(CSParser.WordContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link CSParser#identifier}.
 	 * @param ctx the parse tree
@@ -408,4 +397,254 @@ public interface CSParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDivide(CSParser.DivideContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#greater_than}.
+	 * @param ctx the parse tree
+	 */
+	void enterGreater_than(CSParser.Greater_thanContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#greater_than}.
+	 * @param ctx the parse tree
+	 */
+	void exitGreater_than(CSParser.Greater_thanContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#lesser_than}.
+	 * @param ctx the parse tree
+	 */
+	void enterLesser_than(CSParser.Lesser_thanContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#lesser_than}.
+	 * @param ctx the parse tree
+	 */
+	void exitLesser_than(CSParser.Lesser_thanContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#greater_or_equal}.
+	 * @param ctx the parse tree
+	 */
+	void enterGreater_or_equal(CSParser.Greater_or_equalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#greater_or_equal}.
+	 * @param ctx the parse tree
+	 */
+	void exitGreater_or_equal(CSParser.Greater_or_equalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#lesser_or_equal}.
+	 * @param ctx the parse tree
+	 */
+	void enterLesser_or_equal(CSParser.Lesser_or_equalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#lesser_or_equal}.
+	 * @param ctx the parse tree
+	 */
+	void exitLesser_or_equal(CSParser.Lesser_or_equalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#equal}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqual(CSParser.EqualContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#equal}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqual(CSParser.EqualContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#not_equal}.
+	 * @param ctx the parse tree
+	 */
+	void enterNot_equal(CSParser.Not_equalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#not_equal}.
+	 * @param ctx the parse tree
+	 */
+	void exitNot_equal(CSParser.Not_equalContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#comparison}.
+	 * @param ctx the parse tree
+	 */
+	void enterComparison(CSParser.ComparisonContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#comparison}.
+	 * @param ctx the parse tree
+	 */
+	void exitComparison(CSParser.ComparisonContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#logical_operand}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogical_operand(CSParser.Logical_operandContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#logical_operand}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogical_operand(CSParser.Logical_operandContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#conjunction}.
+	 * @param ctx the parse tree
+	 */
+	void enterConjunction(CSParser.ConjunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#conjunction}.
+	 * @param ctx the parse tree
+	 */
+	void exitConjunction(CSParser.ConjunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#alternative}.
+	 * @param ctx the parse tree
+	 */
+	void enterAlternative(CSParser.AlternativeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#alternative}.
+	 * @param ctx the parse tree
+	 */
+	void exitAlternative(CSParser.AlternativeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#negation}.
+	 * @param ctx the parse tree
+	 */
+	void enterNegation(CSParser.NegationContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#negation}.
+	 * @param ctx the parse tree
+	 */
+	void exitNegation(CSParser.NegationContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#logical_operator}.
+	 * @param ctx the parse tree
+	 */
+	void enterLogical_operator(CSParser.Logical_operatorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#logical_operator}.
+	 * @param ctx the parse tree
+	 */
+	void exitLogical_operator(CSParser.Logical_operatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondition(CSParser.ConditionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#condition}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondition(CSParser.ConditionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#while_loop}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhile_loop(CSParser.While_loopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#while_loop}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhile_loop(CSParser.While_loopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#do_while_loop}.
+	 * @param ctx the parse tree
+	 */
+	void enterDo_while_loop(CSParser.Do_while_loopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#do_while_loop}.
+	 * @param ctx the parse tree
+	 */
+	void exitDo_while_loop(CSParser.Do_while_loopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#for_loop}.
+	 * @param ctx the parse tree
+	 */
+	void enterFor_loop(CSParser.For_loopContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#for_loop}.
+	 * @param ctx the parse tree
+	 */
+	void exitFor_loop(CSParser.For_loopContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#if_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterIf_cond(CSParser.If_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#if_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitIf_cond(CSParser.If_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#else_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterElse_cond(CSParser.Else_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#else_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitElse_cond(CSParser.Else_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#foreach}.
+	 * @param ctx the parse tree
+	 */
+	void enterForeach(CSParser.ForeachContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#foreach}.
+	 * @param ctx the parse tree
+	 */
+	void exitForeach(CSParser.ForeachContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#switch_cond}.
+	 * @param ctx the parse tree
+	 */
+	void enterSwitch_cond(CSParser.Switch_condContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#switch_cond}.
+	 * @param ctx the parse tree
+	 */
+	void exitSwitch_cond(CSParser.Switch_condContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#pre_increment}.
+	 * @param ctx the parse tree
+	 */
+	void enterPre_increment(CSParser.Pre_incrementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#pre_increment}.
+	 * @param ctx the parse tree
+	 */
+	void exitPre_increment(CSParser.Pre_incrementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#post_increment}.
+	 * @param ctx the parse tree
+	 */
+	void enterPost_increment(CSParser.Post_incrementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#post_increment}.
+	 * @param ctx the parse tree
+	 */
+	void exitPost_increment(CSParser.Post_incrementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#pre_decrement}.
+	 * @param ctx the parse tree
+	 */
+	void enterPre_decrement(CSParser.Pre_decrementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#pre_decrement}.
+	 * @param ctx the parse tree
+	 */
+	void exitPre_decrement(CSParser.Pre_decrementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#post_decrement}.
+	 * @param ctx the parse tree
+	 */
+	void enterPost_decrement(CSParser.Post_decrementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#post_decrement}.
+	 * @param ctx the parse tree
+	 */
+	void exitPost_decrement(CSParser.Post_decrementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link CSParser#in_decrement}.
+	 * @param ctx the parse tree
+	 */
+	void enterIn_decrement(CSParser.In_decrementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#in_decrement}.
+	 * @param ctx the parse tree
+	 */
+	void exitIn_decrement(CSParser.In_decrementContext ctx);
 }

@@ -23,6 +23,16 @@ namespace antlr_test
             double z;
             z = 12.56 * (-2.5);
 
+            if (bb == true)
+            {
+                bb = false;
+            }
+
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine(i);
+            }
+
             Console.WriteLine(x + test + y + "xd" + z + " " + foo(x));
         }
 

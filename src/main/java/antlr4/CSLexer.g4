@@ -46,12 +46,15 @@ CASE:          'case';
 DEFAULT:       'default';
 CONTINUE:      'continue';
 BREAK:         'break';
+DO:            'do';
 
-LOWERCASE:      [a-z]+;
-UPPERCASE:      [A-Z]+;
+LOWERCASE:      [a-z];
+UPPERCASE:      [A-Z];
 DIGIT:          [0-9];
 UNDERSCORE:     '_';
 STRING_LITERAL: '"' Character* '"';
+//WORD:           (LOWERCASE | UPPERCASE)+;
+IDENTIFIER:     [a-zA-Z_][a-zA-Z_0-9]*;
 
 
 // operatory, nawiasy, itd.
