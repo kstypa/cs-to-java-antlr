@@ -88,7 +88,7 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void enterUsing(CSParser.UsingContext ctx) {
 
 		try {
-			writer.write("package ");
+			writer.write("import ");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
