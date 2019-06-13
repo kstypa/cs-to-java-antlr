@@ -24,7 +24,9 @@ public class CSParserBaseListener implements CSParserListener {
 	private boolean isFloat = false;
 	private boolean isIdentifier = false;
 	private boolean isConstructor = false;
+	private boolean noParameters = false;
 	private int indents = 0;
+	private boolean isMethod = true;
 
 	public CSParserBaseListener(BufferedWriter writer, int size){
 		this.writer = writer;
@@ -428,31 +430,44 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaration(CSParser.DeclarationContext ctx) { }
+	@Override public void exitDeclaration(CSParser.DeclarationContext ctx) {
+
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLocal_declaration(CSParser.Local_declarationContext ctx) { }
+	@Override public void enterLocal_declaration(CSParser.Local_declarationContext ctx) {
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLocal_declaration(CSParser.Local_declarationContext ctx) { }
+	@Override public void exitLocal_declaration(CSParser.Local_declarationContext ctx) {
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMethod_declaration(CSParser.Method_declarationContext ctx) { }
+	@Override public void enterMethod_declaration(CSParser.Method_declarationContext ctx) {
+
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMethod_declaration(CSParser.Method_declarationContext ctx) { }
+	@Override public void exitMethod_declaration(CSParser.Method_declarationContext ctx) {
+
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *

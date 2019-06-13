@@ -5,7 +5,7 @@ import SystemLinq;
 import SystemThreadingTasks;
 import SystemWindowsForms;
 static class Program{
-MainApplicationEnableVisualStylesApplicationSetCompatibleTextRenderingDefaultApplicationRunGridViewv=xdBarstring test=bool bb=double x=..double y=.double zz=.-.ConsoleWriteLinextestyfooxprivate int foo( double x) { 
+	Main	;ApplicationEnableVisualStylesApplicationSetCompatibleTextRenderingDefaultApplicationRunGridView	v	;=xdBar	string test	;=	bool bb	;=	double x	;=..	double y	;=.	double z	;z=.-.ConsoleWriteLinextestyfooxprivate 	int foo	;( double x) { 
 MathFloorx}
 class Ffx{
 }
