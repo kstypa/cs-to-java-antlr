@@ -77,7 +77,7 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void enterUsing(CSParser.UsingContext ctx) {
 
 		try {
-			writer.write("namespace");
+			writer.write("package ");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -107,7 +107,7 @@ public class CSParserBaseListener implements CSParserListener {
 
 		try {
 			isNamespace = true;
-			writer.write("namespace");
+			writer.write("namespace ");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -281,8 +281,14 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void enterIdentifier(CSParser.IdentifierContext ctx) {
 
 		try {
-			if(isStatic)writer.write("static ");
-			if(isClassDefinition)writer.write("class ");
+			if(isStatic){
+				isStatic = false;
+				writer.write("static ");
+			}
+			if(isClassDefinition) {
+				isClassDefinition = false;
+				writer.write("class ");
+			}
 			isIdentifier = true;
 			writer.write(ctx.getText());
 
