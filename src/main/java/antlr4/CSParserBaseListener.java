@@ -470,7 +470,15 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(CSParser.TypeContext ctx) { }
+	@Override public void enterType(CSParser.TypeContext ctx) {
+
+		try {
+			writer.write(ctx.getText() + " ");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *

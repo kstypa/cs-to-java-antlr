@@ -5,12 +5,12 @@ import SystemLinq;
 import SystemThreadingTasks;
 import SystemWindowsForms;
 static class Program{
-MainApplicationEnableVisualStylesApplicationSetCompatibleTextRenderingDefaultApplicationRunGridViewv=xdBartest=bb=x=..y=.zz=.-.ConsoleWriteLinextestyfooxprivate foo( x) { 
+MainApplicationEnableVisualStylesApplicationSetCompatibleTextRenderingDefaultApplicationRunGridViewv=xdBarstring test=bool bb=double x=..double y=.double zz=.-.ConsoleWriteLinextestyfooxprivate int foo( double x) { 
 MathFloorx}
 class Ffx{
 }
 class Bar{
-	private aaa;
-	public Bar( a) { 
+	private int aaa;
+	public Bar( int a) { 
 aaa=a	} 
 }
