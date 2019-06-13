@@ -1,5 +1,8 @@
+package main.java;
+
 import antlr4.CSLexer;
-import main.java.antlr4.CSParserBaseListener;
+import antlr4.CSParser;
+import antlr4.CSParserBaseListener;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -12,8 +15,8 @@ public class Compiler {
     public static void compileCode(String sourceCode, BufferedWriter writer) {
         CommonTokenStream tokens = createToken(sourceCode);
 
-        antlr4.CSParser parser = new antlr4.CSParser(tokens);
-        ParseTree parseTree = parser.file();
+        CSParser parser = new CSParser(tokens);
+        ParseTree parseTree = parser.source_file();
         int size = 1024;
         generateOutput(writer, parseTree, size);
 

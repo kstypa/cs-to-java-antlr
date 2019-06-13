@@ -133,15 +133,10 @@ public class CSParserBaseListener implements CSParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void enterClassdef(CSParser.ClassdefContext ctx) {
-
-		try {
-			isClassDefinition = true;
-			if (ctx.getText().contains.("static")) isStatic = true;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		isClassDefinition = true;
+		if (ctx.getText().contains("static")) isStatic = true;
 	}
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -205,7 +200,7 @@ public class CSParserBaseListener implements CSParserListener {
 	@Override public void enterNumber(CSParser.NumberContext ctx) {
 
 		try {
-			if(ctx.toText().charAt(0) == '-')writer.write('-');
+			if(ctx.getText().charAt(0) == '-')writer.write('-');
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -362,7 +357,16 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignment(CSParser.AssignmentContext ctx) { }
+	@Override public void enterAssignment(CSParser.AssignmentContext ctx) {
+
+        try {
+            writer.write("=");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 	/**
 	 * {@inheritDoc}
 	 *
