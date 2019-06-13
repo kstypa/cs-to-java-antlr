@@ -290,7 +290,15 @@ public class CSParserBaseListener implements CSParserListener {
 
 	@Override public void exitValue(CSParser.ValueContext ctx) { }
 
-	@Override public void enterType(CSParser.TypeContext ctx) { }
+	@Override public void enterType(CSParser.TypeContext ctx) {
+
+		try {
+			writer.write(ctx.getText() + " ");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	@Override public void exitType(CSParser.TypeContext ctx) { }
 
