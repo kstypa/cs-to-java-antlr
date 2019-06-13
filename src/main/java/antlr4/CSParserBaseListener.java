@@ -1,10 +1,12 @@
 package antlr4;
 
+
 // Generated from CSParser.g4 by ANTLR 4.7.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import java.io.BufferedWriter;
 
 /**
  * This class provides an empty implementation of {@link CSParserListener},
@@ -12,12 +14,24 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * of the available methods.
  */
 public class CSParserBaseListener implements CSParserListener {
+
+	private BufferedWriter writer;
+	private int fileSize = 0;
+
+	CSParserBaseListener(BufferedWriter writer,int size){
+		this.writer = writer;
+		this.fileSize = size;
+	}
+
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEntry_point(CSParser.Entry_pointContext ctx) { }
+	@Override public void enterEntry_point(CSParser.Entry_pointContext ctx) {
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -53,13 +67,17 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUsing(CSParser.UsingContext ctx) { }
+	@Override public void enterUsing(CSParser.UsingContext ctx) {
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUsing(CSParser.UsingContext ctx) { }
+	@Override public void exitUsing(CSParser.UsingContext ctx) {
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
