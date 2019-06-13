@@ -7,6 +7,7 @@ import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import java.io.BufferedWriter;
+import java.io.IOException;
 
 /**
  * This class provides an empty implementation of {@link CSParserListener},
@@ -17,8 +18,14 @@ public class CSParserBaseListener implements CSParserListener {
 
 	private BufferedWriter writer;
 	private int fileSize = 0;
+	private boolean isNamespace = false;
+	private boolean isClassDefinition = false;
+	private boolean isStatic = false;
+	private boolean isFloat = false;
+	private boolean isIdentifier = false;
+	private boolean isConstructor = false;
 
-	CSParserBaseListener(BufferedWriter writer,int size){
+	public CSParserBaseListener(BufferedWriter writer, int size){
 		this.writer = writer;
 		this.fileSize = size;
 	}
@@ -69,6 +76,12 @@ public class CSParserBaseListener implements CSParserListener {
 	 */
 	@Override public void enterUsing(CSParser.UsingContext ctx) {
 
+		try {
+			writer.write("namespace");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 	/**
 	 * {@inheritDoc}
@@ -77,37 +90,87 @@ public class CSParserBaseListener implements CSParserListener {
 	 */
 	@Override public void exitUsing(CSParser.UsingContext ctx) {
 
+		try {
+			writer.write(";\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNamespace(CSParser.NamespaceContext ctx) { }
+	@Override public void enterNamespace(CSParser.NamespaceContext ctx) {
+
+
+		try {
+			isNamespace = true;
+			writer.write("namespace");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNamespace(CSParser.NamespaceContext ctx) { }
+	@Override public void exitNamespace(CSParser.NamespaceContext ctx) {
+		try {
+			isNamespace = false;
+			writer.write("}\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClassdef(CSParser.ClassdefContext ctx) { }
+	@Override public void enterClassdef(CSParser.ClassdefContext ctx) {
+
+		try {
+			isClassDefinition = true;
+			if (ctx.getText().contains.("static")) isStatic = true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClassdef(CSParser.ClassdefContext ctx) { }
+	@Override public void exitClassdef(CSParser.ClassdefContext ctx) {
+
+		try {
+			isClassDefinition = false;
+			isStatic = false;
+			writer.write("}\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClass_access_m(CSParser.Class_access_mContext ctx) { }
+	@Override public void enterClass_access_m(CSParser.Class_access_mContext ctx) {
+
+		try {
+			writer.write(ctx.getText());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -119,7 +182,15 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAccess_modifier(CSParser.Access_modifierContext ctx) { }
+	@Override public void enterAccess_modifier(CSParser.Access_modifierContext ctx) {
+
+		try {
+			writer.write(ctx.getText());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -131,7 +202,15 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNumber(CSParser.NumberContext ctx) { }
+	@Override public void enterNumber(CSParser.NumberContext ctx) {
+
+		try {
+			if(ctx.toText().charAt(0) == '-')writer.write('-');
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -143,31 +222,56 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInteger(CSParser.IntegerContext ctx) { }
+	@Override public void enterInteger(CSParser.IntegerContext ctx) {
+
+		try {
+			if(!isIdentifier)writer.write(ctx.getText());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInteger(CSParser.IntegerContext ctx) { }
+	@Override public void exitInteger(CSParser.IntegerContext ctx) {
+
+		try {
+			if(isFloat) {
+				writer.write('.');
+				isFloat = false;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFloating(CSParser.FloatingContext ctx) { }
+	@Override public void enterFloating(CSParser.FloatingContext ctx) {
+
+		isFloat = true;
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFloating(CSParser.FloatingContext ctx) { }
+	@Override public void exitFloating(CSParser.FloatingContext ctx) {	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWord(CSParser.WordContext ctx) { }
+	@Override public void enterWord(CSParser.WordContext ctx) {
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -179,19 +283,49 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdentifier(CSParser.IdentifierContext ctx) { }
+	@Override public void enterIdentifier(CSParser.IdentifierContext ctx) {
+
+		try {
+			if(isStatic)writer.write("static ");
+			if(isClassDefinition)writer.write("class ");
+			isIdentifier = true;
+			writer.write(ctx.getText());
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIdentifier(CSParser.IdentifierContext ctx) { }
+	@Override public void exitIdentifier(CSParser.IdentifierContext ctx) {
+
+
+		try {
+			isIdentifier = false;
+			if(isNamespace || isClassDefinition) writer.write(" { \n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstructor_access_m(CSParser.Constructor_access_mContext ctx) { }
+	@Override public void enterConstructor_access_m(CSParser.Constructor_access_mContext ctx) {
+
+        try {
+            writer.write(ctx.getText());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -203,13 +337,26 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterConstructor(CSParser.ConstructorContext ctx) { }
+	@Override public void enterConstructor(CSParser.ConstructorContext ctx) {
+
+	    isConstructor = true;
+
+    }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitConstructor(CSParser.ConstructorContext ctx) { }
+	@Override public void exitConstructor(CSParser.ConstructorContext ctx) {
+
+        try {
+            writer.write("} \n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -311,13 +458,31 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParamedefs(CSParser.ParamedefsContext ctx) { }
+	@Override public void enterParamedefs(CSParser.ParamedefsContext ctx) {
+
+        try {
+            writer.write("( ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParamedefs(CSParser.ParamedefsContext ctx) { }
+	@Override public void exitParamedefs(CSParser.ParamedefsContext ctx) {
+
+        try {
+            writer.write(") { \n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 	/**
 	 * {@inheritDoc}
 	 *
