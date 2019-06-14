@@ -1,28 +1,28 @@
-import System;
-import SystemCollectionsGeneric;
-import SystemDataSQLite;
-import SystemLinq;
-import SystemThreadingTasks;
-import SystemWindowsForms;
+import .System;
+import SystemCollections.Generic;
+import SystemData.SQLite;
+import System.Linq;
+import SystemThreading.Tasks;
+import SystemWindows.Forms;
 static class Program{
-	static Main		ApplicationEnableVisualStyles;
-		ApplicationSetCompatibleTextRenderingDefault;
-		ApplicationRunGridView;
-		v=xdBar;
+	static Main		Application.EnableVisualStyles;
+		Application.SetCompatibleTextRenderingDefault();
+		Application.Run(new .GridView);
+		v=new xd.Bar(15);
 		string test=;
 		bool bb=;
-		double x=..;
-		double y=.;
+		double x=22.145.4;
+		double y=67.12;
 		double z;
-		z=.-.;
+		z=12.56-2.5;
 		bb		bb=;
 ;
-		int i=ii		ConsoleWriteLinei;
+		int i=0i10i		Console.WriteLine(i);
 ;
-		ConsoleWriteLinextestyfoox;
+		Console.WriteLine(xtesty.foo(x));
 	} 
 	private int foo( double x) { 
-				return MathFloorx;
+				return Math.Floor(x);
 ;
 	} 
 }

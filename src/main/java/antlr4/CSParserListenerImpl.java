@@ -17,6 +17,9 @@ public class CSParserListenerImpl implements CSParserListener {
     private boolean isIdentifier = false;
     private boolean isConstructor = false;
     private boolean isMethod = false;
+    private boolean isCall = false;
+    private boolean isParameters = false;
+    private boolean secondParam = false;
     private int indents = 0;
 
     public CSParserListenerImpl(BufferedWriter writer, int size){
@@ -139,7 +142,7 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void enterInteger(CSParser.IntegerContext ctx) {
 
         try {
-            if(!isIdentifier)writer.write(ctx.getText());
+            writer.write(ctx.getText());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -298,9 +301,21 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override public void exitMethod_declaration(CSParser.Method_declarationContext ctx) { }
 
-    @Override public void enterValue(CSParser.ValueContext ctx) { }
+    @Override public void enterValue(CSParser.ValueContext ctx) {
 
-    @Override public void exitValue(CSParser.ValueContext ctx) { }
+        try {
+            if(secondParam)writer.write(",");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override public void exitValue(CSParser.ValueContext ctx) {
+
+        if(isParameters) secondParam = true;
+
+    }
 
     @Override public void enterType(CSParser.TypeContext ctx) {
 
@@ -349,7 +364,11 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void exitParamedefs(CSParser.ParamedefsContext ctx) {
 
         try {
-            writer.write(") { \n");
+            if(isCall) {
+                isCall = false;
+                writer.write(")");
+            }
+            else writer.write(") { \n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -426,21 +445,64 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override public void exitCall(CSParser.CallContext ctx) { }
 
-    @Override public void enterNew_object(CSParser.New_objectContext ctx) { }
+    @Override public void enterNew_object(CSParser.New_objectContext ctx) {
+
+        try {
+            writer.write("new ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override public void exitNew_object(CSParser.New_objectContext ctx) { }
 
-    @Override public void enterDelete_object(CSParser.Delete_objectContext ctx) { }
+    @Override public void enterDelete_object(CSParser.Delete_objectContext ctx) {
+
+        try {
+            writer.write("delete ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override public void exitDelete_object(CSParser.Delete_objectContext ctx) { }
 
-    @Override public void enterOrigin_class(CSParser.Origin_classContext ctx) { }
+    @Override public void enterOrigin_class(CSParser.Origin_classContext ctx) {
 
-    @Override public void exitOrigin_class(CSParser.Origin_classContext ctx) { }
+    }
 
-    @Override public void enterParameters(CSParser.ParametersContext ctx) { }
+    @Override public void exitOrigin_class(CSParser.Origin_classContext ctx) {
 
-    @Override public void exitParameters(CSParser.ParametersContext ctx) { }
+        try {
+            writer.write(".");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override public void enterParameters(CSParser.ParametersContext ctx) {
+
+        try {
+            writer.write("(");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override public void exitParameters(CSParser.ParametersContext ctx) {
+
+        try {
+            isParameters = false;
+            secondParam = false;
+            writer.write(")");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override public void enterArithmetic(CSParser.ArithmeticContext ctx) { }
 
