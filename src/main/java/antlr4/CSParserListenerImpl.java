@@ -16,6 +16,7 @@ public class CSParserListenerImpl implements CSParserListener {
     private boolean isFloat = false;
     private boolean isIdentifier = false;
     private boolean isConstructor = false;
+    private boolean isMethod = false;
     private int indents = 0;
 
     public CSParserListenerImpl(BufferedWriter writer, int size){
@@ -282,7 +283,18 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override public void exitLocal_declaration(CSParser.Local_declarationContext ctx) { }
 
-    @Override public void enterMethod_declaration(CSParser.Method_declarationContext ctx) { }
+    @Override public void enterMethod_declaration(CSParser.Method_declarationContext ctx) {
+
+        try {
+            if(isStatic){
+                isStatic = false;
+                writer.write("static ");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override public void exitMethod_declaration(CSParser.Method_declarationContext ctx) { }
 
@@ -302,9 +314,27 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override public void exitType(CSParser.TypeContext ctx) { }
 
-    @Override public void enterMethod(CSParser.MethodContext ctx) { }
+    @Override public void enterMethod(CSParser.MethodContext ctx) {
 
-    @Override public void exitMethod(CSParser.MethodContext ctx) { }
+        putIndents();
+        indents++;
+        isMethod = true;
+        if(ctx.getText().contains("static")) isStatic = true;
+
+
+    }
+
+    @Override public void exitMethod(CSParser.MethodContext ctx) {
+
+        try {
+            indents--;
+            putIndents();
+            writer.write("} \n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override public void enterParamedefs(CSParser.ParamedefsContext ctx) {
 
@@ -313,7 +343,6 @@ public class CSParserListenerImpl implements CSParserListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -325,20 +354,47 @@ public class CSParserListenerImpl implements CSParserListener {
             e.printStackTrace();
         }
 
+    }
+
+    @Override public void enterReturn_com(CSParser.Return_comContext ctx) {
+
+        try {
+            putIndents();
+            writer.write("return ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override public void exitReturn_com(CSParser.Return_comContext ctx) {
+
+        try {
+            writer.write(";");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    @Override public void enterReturn_com(CSParser.Return_comContext ctx) { }
+    @Override public void enterCommand_void(CSParser.Command_voidContext ctx) {
 
-    @Override public void exitReturn_com(CSParser.Return_comContext ctx) { }
+            putIndents();
 
-    @Override public void enterCommand_void(CSParser.Command_voidContext ctx) { }
+    }
 
     @Override public void exitCommand_void(CSParser.Command_voidContext ctx) { }
 
     @Override public void enterConstructor_command(CSParser.Constructor_commandContext ctx) { }
 
-    @Override public void exitConstructor_command(CSParser.Constructor_commandContext ctx) { }
+    @Override public void exitConstructor_command(CSParser.Constructor_commandContext ctx) {
+
+        try {
+            writer.write(";");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override public void enterCommand(CSParser.CommandContext ctx) { }
 
