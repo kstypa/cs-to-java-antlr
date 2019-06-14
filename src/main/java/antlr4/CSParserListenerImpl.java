@@ -523,6 +523,7 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void enterOperand(CSParser.OperandContext ctx) {
 
         try {
+            if(secondParam && isArithmetic && !arithmSign.equals('+')) writer.write(arithmSign);
             if(ctx.getText().contains("(")) writer.write("(");
         } catch (IOException e) {
             e.printStackTrace();
@@ -533,6 +534,7 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void exitOperand(CSParser.OperandContext ctx) {
 
         try {
+            if(isArithmetic) secondParam = true;
             if(ctx.getText().contains(")")) writer.write(")");
         } catch (IOException e) {
             e.printStackTrace();
@@ -544,7 +546,7 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void enterAdd_operand(CSParser.Add_operandContext ctx) {
 
         try {
-            if(secondParam && isArithmetic) writer.write(arithmSign);
+            if(secondParam && isArithmetic && arithmSign.equals('+')) writer.write(arithmSign);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -572,17 +574,47 @@ public class CSParserListenerImpl implements CSParserListener {
 
     }
 
-    @Override public void enterSubtract(CSParser.SubtractContext ctx) { }
+    @Override public void enterSubtract(CSParser.SubtractContext ctx) {
 
-    @Override public void exitSubtract(CSParser.SubtractContext ctx) { }
+        isArithmetic = true;
+        arithmSign = "-";
 
-    @Override public void enterMultiply(CSParser.MultiplyContext ctx) { }
+    }
 
-    @Override public void exitMultiply(CSParser.MultiplyContext ctx) { }
+    @Override public void exitSubtract(CSParser.SubtractContext ctx) {
 
-    @Override public void enterDivide(CSParser.DivideContext ctx) { }
+        isArithmetic = false;
+        secondParam = false;
 
-    @Override public void exitDivide(CSParser.DivideContext ctx) { }
+    }
+
+    @Override public void enterMultiply(CSParser.MultiplyContext ctx) {
+
+        isArithmetic = true;
+        arithmSign = "*";
+
+    }
+
+    @Override public void exitMultiply(CSParser.MultiplyContext ctx) {
+
+        isArithmetic = false;
+        secondParam = false;
+
+    }
+
+    @Override public void enterDivide(CSParser.DivideContext ctx) {
+
+        isArithmetic = true;
+        arithmSign = "*";
+
+    }
+
+    @Override public void exitDivide(CSParser.DivideContext ctx) {
+
+        isArithmetic = false;
+        secondParam = false;
+
+    }
 
     @Override
     public void enterGreater_than(CSParser.Greater_thanContext ctx) {
