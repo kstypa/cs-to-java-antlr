@@ -376,10 +376,6 @@ public class CSParserListenerImpl implements CSParserListener {
 
     }
 
-    @Override public void enterCommand_void(CSParser.Command_voidContext ctx) {
-
-            putIndents();
-    }
 
     @Override
     public void enterControl_statement(CSParser.Control_statementContext ctx) {
@@ -390,6 +386,11 @@ public class CSParserListenerImpl implements CSParserListener {
     public void exitControl_statement(CSParser.Control_statementContext ctx) {
 
     }
+
+    @Override public void enterCommand_void(CSParser.Command_voidContext ctx) {
+
+    }
+
 
     @Override public void exitCommand_void(CSParser.Command_voidContext ctx) { }
 
@@ -405,9 +406,21 @@ public class CSParserListenerImpl implements CSParserListener {
 
     }
 
-    @Override public void enterCommand(CSParser.CommandContext ctx) { }
+    @Override public void enterCommand(CSParser.CommandContext ctx) {
 
-    @Override public void exitCommand(CSParser.CommandContext ctx) { }
+        putIndents();
+
+    }
+
+    @Override public void exitCommand(CSParser.CommandContext ctx) {
+
+        try {
+            writer.write(";\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override public void enterCall(CSParser.CallContext ctx) { }
 
