@@ -139,9 +139,9 @@ greater_or_equal:       operand '<=' operand;
 
 lesser_or_equal:        operand '>=' operand;
 
-equal:                  operand '==' operand;
+equal:                  (operand | TRUE | FALSE) '==' (operand | TRUE | FALSE);
 
-not_equal:              operand '!=' operand;
+not_equal:              (operand | TRUE | FALSE) '!=' (operand | TRUE | FALSE);
 
 comparison:             greater_or_equal | lesser_or_equal |greater_than | lesser_than | equal | not_equal;
 
@@ -167,20 +167,20 @@ do_while_loop:          DO ( (OPEN_BRACE
                         WHILE '(' condition ')';
 
 for_loop:               FOR '(' declaration assignment ';' condition ';' ( identifier assignment | call | in_decrement ) ')' ((OPEN_BRACE
-                                     command*
+                                     command+
                                      CLOSE_BRACE) | command );
 
 if_cond:                IF '(' condition ')'((OPEN_BRACE
-                                           command*
+                                           command+
                                            CLOSE_BRACE) | command )
                                            else_cond?;
 
 else_cond:             ELSE((OPEN_BRACE
-                             command*
+                             command+
                              CLOSE_BRACE) | command );
 
 foreach:                FOREACH '(' declaration IN identifier ')'((OPEN_BRACE
-                                                   command*
+                                                   command+
                                                     CLOSE_BRACE) | command );
 
 switch_cond:            SWITCH  '(' operand ')' OPEN_BRACE
