@@ -20,8 +20,11 @@ public class CSParserListenerImpl implements CSParserListener {
     private boolean isCall = false;
     private boolean isParameters = false;
     private boolean secondParam = false;
-    private int indents = 0;
     private boolean isParamedefs = false;
+    private String arithmSign = "";
+    private boolean isArithmetic = false;
+    private int indents = 0;
+
 
     public CSParserListenerImpl(BufferedWriter writer, int size){
         this.writer = writer;
@@ -275,7 +278,7 @@ public class CSParserListenerImpl implements CSParserListener {
                 isStatic = false;
                 writer.write("static ");
             }
-            if(secondParam)writer.write(",");
+            if(secondParam && isParamedefs)writer.write(",");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -310,7 +313,7 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void enterValue(CSParser.ValueContext ctx) {
 
         try {
-            if(secondParam)writer.write(",");
+            if(secondParam && isParameters)writer.write(",");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -517,17 +520,57 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override public void exitArithmetic(CSParser.ArithmeticContext ctx) { }
 
-    @Override public void enterOperand(CSParser.OperandContext ctx) { }
+    @Override public void enterOperand(CSParser.OperandContext ctx) {
 
-    @Override public void exitOperand(CSParser.OperandContext ctx) { }
+        try {
+            if(ctx.getText().contains("(")) writer.write("(");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    @Override public void enterAdd_operand(CSParser.Add_operandContext ctx) { }
+    }
 
-    @Override public void exitAdd_operand(CSParser.Add_operandContext ctx) { }
+    @Override public void exitOperand(CSParser.OperandContext ctx) {
 
-    @Override public void enterAdd(CSParser.AddContext ctx) { }
+        try {
+            if(ctx.getText().contains(")")) writer.write(")");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-    @Override public void exitAdd(CSParser.AddContext ctx) { }
+
+    }
+
+    @Override public void enterAdd_operand(CSParser.Add_operandContext ctx) {
+
+        try {
+            if(secondParam && isArithmetic) writer.write(arithmSign);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override public void exitAdd_operand(CSParser.Add_operandContext ctx) {
+
+        if(isArithmetic) secondParam = true;
+
+    }
+
+    @Override public void enterAdd(CSParser.AddContext ctx) {
+
+        isArithmetic = true;
+        arithmSign = "+";
+
+    }
+
+    @Override public void exitAdd(CSParser.AddContext ctx) {
+
+        isArithmetic = false;
+        secondParam = false;
+
+
+    }
 
     @Override public void enterSubtract(CSParser.SubtractContext ctx) { }
 
