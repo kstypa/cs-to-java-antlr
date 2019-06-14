@@ -21,6 +21,7 @@ public class CSParserListenerImpl implements CSParserListener {
     private boolean isParameters = false;
     private boolean secondParam = false;
     private int indents = 0;
+    private boolean isParamedefs = false;
 
     public CSParserListenerImpl(BufferedWriter writer, int size){
         this.writer = writer;
@@ -274,13 +275,18 @@ public class CSParserListenerImpl implements CSParserListener {
                 isStatic = false;
                 writer.write("static ");
             }
+            if(secondParam)writer.write(",");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    @Override public void exitDeclaration(CSParser.DeclarationContext ctx) { }
+    @Override public void exitDeclaration(CSParser.DeclarationContext ctx) {
+
+        if(isParamedefs) secondParam = true;
+
+    }
 
     @Override public void enterLocal_declaration(CSParser.Local_declarationContext ctx) { }
 
@@ -354,6 +360,7 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void enterParamedefs(CSParser.ParamedefsContext ctx) {
 
         try {
+            isParamedefs = true;
             writer.write("( ");
         } catch (IOException e) {
             e.printStackTrace();
@@ -364,6 +371,8 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void exitParamedefs(CSParser.ParamedefsContext ctx) {
 
         try {
+            isParamedefs = false;
+            secondParam = false;
             if(isCall) {
                 isCall = false;
                 writer.write(")");
