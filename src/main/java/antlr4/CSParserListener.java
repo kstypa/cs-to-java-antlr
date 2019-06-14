@@ -248,6 +248,16 @@ public interface CSParserListener extends ParseTreeListener {
 	 */
 	void exitReturn_com(CSParser.Return_comContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link CSParser#control_statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterControl_statement(CSParser.Control_statementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link CSParser#control_statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitControl_statement(CSParser.Control_statementContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link CSParser#command_void}.
 	 * @param ctx the parse tree
 	 */

@@ -332,6 +332,16 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override public void exitReturn_com(CSParser.Return_comContext ctx) { }
 
+    @Override
+    public void enterControl_statement(CSParser.Control_statementContext ctx) {
+
+    }
+
+    @Override
+    public void exitControl_statement(CSParser.Control_statementContext ctx) {
+
+    }
+
     @Override public void enterCommand_void(CSParser.Command_voidContext ctx) { }
 
     @Override public void exitCommand_void(CSParser.Command_voidContext ctx) { }
