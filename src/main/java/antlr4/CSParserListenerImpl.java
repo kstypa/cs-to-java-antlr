@@ -379,6 +379,15 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void enterCommand_void(CSParser.Command_voidContext ctx) {
 
             putIndents();
+    }
+
+    @Override
+    public void enterControl_statement(CSParser.Control_statementContext ctx) {
+
+    }
+
+    @Override
+    public void exitControl_statement(CSParser.Control_statementContext ctx) {
 
     }
 

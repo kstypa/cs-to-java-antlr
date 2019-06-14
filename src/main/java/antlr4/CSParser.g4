@@ -88,12 +88,7 @@ paramedefs:             declaration (',' declaration)*;
 
 return_com:             RETURN value;
 
-command_void:           ( call
-                        | in_decrement
-                        | local_declaration assignment?
-                        | identifier assignment
-                        | delete_object
-                        | if_cond
+control_statement:      ( if_cond
                         | for_loop
                         | foreach
                         | while_loop
@@ -101,11 +96,21 @@ command_void:           ( call
                         | switch_cond
                         );
 
-constructor_command:    command_void ';';
+command_void:           ( call
+                        | in_decrement
+                        | local_declaration assignment?
+                        | identifier assignment
+                        | delete_object
+                        );
 
-command:                ( command_void
-                        | return_com
-                        ) ';';
+constructor_command:    (command_void ';') | control_statement;
+
+command:                (
+                            ( command_void
+                            | return_com
+                            ) ';'
+                        |   control_statement
+                        );
 
 call:                   origin_class identifier '(' parameters? ')';
 
@@ -139,9 +144,9 @@ greater_or_equal:       operand '<=' operand;
 
 lesser_or_equal:        operand '>=' operand;
 
-equal:                  operand '==' operand;
+equal:                  (operand | TRUE | FALSE) '==' (operand | TRUE | FALSE);
 
-not_equal:              operand '!=' operand;
+not_equal:              (operand | TRUE | FALSE) '!=' (operand | TRUE | FALSE);
 
 comparison:             greater_or_equal | lesser_or_equal |greater_than | lesser_than | equal | not_equal;
 
@@ -166,21 +171,21 @@ do_while_loop:          DO ( (OPEN_BRACE
                         CLOSE_BRACE) | command )
                         WHILE '(' condition ')';
 
-for_loop:               FOR '(' declaration assignment ';' condition ';' ( identifier assignment | call | in_decrement ) ')' ((OPEN_BRACE
-                                     command*
+for_loop:               FOR '(' (declaration | identifier) assignment ';' condition ';' ( identifier assignment | call | in_decrement ) ')' ((OPEN_BRACE
+                                     command+
                                      CLOSE_BRACE) | command );
 
 if_cond:                IF '(' condition ')'((OPEN_BRACE
-                                           command*
+                                           command+
                                            CLOSE_BRACE) | command )
                                            else_cond?;
 
 else_cond:             ELSE((OPEN_BRACE
-                             command*
+                             command+
                              CLOSE_BRACE) | command );
 
 foreach:                FOREACH '(' declaration IN identifier ')'((OPEN_BRACE
-                                                   command*
+                                                   command+
                                                     CLOSE_BRACE) | command );
 
 switch_cond:            SWITCH  '(' operand ')' OPEN_BRACE

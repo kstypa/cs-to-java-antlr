@@ -304,6 +304,18 @@ public class CSParserBaseListener implements CSParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterControl_statement(CSParser.Control_statementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitControl_statement(CSParser.Control_statementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCommand_void(CSParser.Command_voidContext ctx) { }
 	/**
 	 * {@inheritDoc}
