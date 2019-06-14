@@ -369,7 +369,7 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void exitReturn_com(CSParser.Return_comContext ctx) {
 
         try {
-            writer.write(";");
+            writer.write(";\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -398,7 +398,7 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override public void exitConstructor_command(CSParser.Constructor_commandContext ctx) {
 
         try {
-            writer.write(";");
+            writer.write(";\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
