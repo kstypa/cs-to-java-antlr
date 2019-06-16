@@ -20,7 +20,7 @@ internal_token:         INTERNAL;
 
 private_token:          PRIVATE;
 
-proteceted_token:       PROTECETED;
+proteceted_token:       PROTECTED;
 
 digit_token:            DIGIT;
 
@@ -112,6 +112,8 @@ and_sign:               '&&';
 or_sign:                '||';
 
 negation_sign:          '!';
+
+colon_sign:             ':';
 
 type:                     BOOL
                         | BYTE
@@ -302,8 +304,8 @@ foreach:                foreach_token open_bracket_sign declaration in_token ide
                                                     closed_brace_token) | command );
 
 switch_cond:            switch_token  open_bracket_sign operand close_bracket_sign open_brace_token
-                            (case_token value ':' (command)* (break_token semicolon_sign) ?)*
-                            (default_token ':'(command)* (break_token semicolon_sign))?
+                            (case_token value colon_sign (command)* (break_token semicolon_sign) ?)*
+                            (default_token colon_sign(command)* (break_token semicolon_sign))?
                             closed_brace_token;
 
 pre_increment:          identifier_token incrementation_sign;

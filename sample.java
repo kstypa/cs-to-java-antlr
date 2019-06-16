@@ -1,36 +1,20 @@
-import .System;
-import SystemCollections.Generic;
-import SystemData.SQLite;
-import System.Linq;
-import SystemThreading.Tasks;
-import SystemWindows.Forms;
-static class Program{
-	static Main		Application.EnableVisualStyles;
-		Application.SetCompatibleTextRenderingDefault();
-		Application.Run(new .GridView);
-		v=new xd.Bar(15);
-		string test=;
-		bool bb=;
-		double x=22.14+5.4;
-		double y=67.1-2;
-		double z;
-		z=12.56*(-2.5);
-		bb		bb=;
-;
-		int i=0i10i		Console.WriteLine(i);
-;
-		Console.WriteLine(x+test+y+(.foo(x)));
-	} 
-	private int foo( double x) { 
-				return Math.Floor(x);
-;
-	} 
+using System ; using System . Collections . Generic ; using System . Data . SQLite ; using System . Linq ; using System . Threading . Tasks ; using System . Windows . Forms ; namespace antlr_test {
+static class Program {
+static void Main ( ) {
+Application . EnableVisualStyles ( ) ; Application . SetCompatibleTextRenderingDefault ( false ) ; Application . Run ( new GridView ( ) ) ; var v = new xd . Bar ( 1 5 ) ; string test = "test" ; bool bb = false ; double x = 2 2 . 1 4 + 5 . 4 ; double y = 6 7 . 1 - 2 ; double z ; z = 1 2 . 5 6 * ( - 2 . 5 ) ; if ( bb == true true ) {
+bb = false ; }
+for ( int i = 0 ; i < 1 0 ; i ++ ) {
+Console . WriteLine ( i ) ; }
+Console . WriteLine ( x + test + y + "xd" + z + " " + foo ( x ) ) ; }
+private int foo ( double x ) {
+return Math . Floor ( x ) ; }
 }
-class Ffx{
+class Ffx {
 }
-class Bar{
-	private int aaa;
-	public Bar( int a) { 
-aaa=a;
-	} 
+}
+namespace xd {
+class Bar {
+private int aaa ; public Bar ( int a ) {
+aaa = a ; }
+}
 }
