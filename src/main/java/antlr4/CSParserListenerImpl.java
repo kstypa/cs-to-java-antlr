@@ -12,6 +12,7 @@ public class CSParserListenerImpl implements CSParserListener {
     private int fileSize = 0;
     private int indents = 0;
     private boolean isOriginClass = false;
+    private boolean isNamespace = false;
 
 
     public CSParserListenerImpl(BufferedWriter writer, int size){
@@ -49,12 +50,6 @@ public class CSParserListenerImpl implements CSParserListener {
     @Override
     public void enterNamespace_token(CSParser.Namespace_tokenContext ctx) {
 
-        try {
-            writer.write(ctx.getText() + " ");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     @Override
@@ -66,8 +61,8 @@ public class CSParserListenerImpl implements CSParserListener {
     public void enterOpen_brace_token(CSParser.Open_brace_tokenContext ctx) {
 
         try {
+            if(indents>=0)writer.write(ctx.getText() + "\n");
             indents++;
-            writer.write(ctx.getText() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,13 +71,17 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void exitOpen_brace_token(CSParser.Open_brace_tokenContext ctx) {
-        indents--;
+
     }
 
     @Override
     public void enterClosed_brace_token(CSParser.Closed_brace_tokenContext ctx) {
         try {
-            writer.write(ctx.getText() + "\n");
+            indents--;
+            if(indents>=0){
+                putIndents();
+                writer.write(ctx.getText() + "\n");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -239,8 +238,13 @@ public class CSParserListenerImpl implements CSParserListener {
     public void enterIdentifier_token(CSParser.Identifier_tokenContext ctx) {
 
         try {
-            writer.write(ctx.getText());
-            if(!isOriginClass) writer.write(" ");
+            if(isNamespace){
+                isNamespace = false;
+            }
+            else {
+                writer.write(ctx.getText());
+                if (!isOriginClass) writer.write(" ");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -958,7 +962,8 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void enterNamespace(CSParser.NamespaceContext ctx) {
-
+        isNamespace = true;
+        indents = -1;
     }
 
     @Override
@@ -1042,7 +1047,7 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void enterConstructor(CSParser.ConstructorContext ctx) {
-
+        putIndents();
     }
 
     @Override
@@ -1118,7 +1123,7 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void enterMethod(CSParser.MethodContext ctx) {
-
+        putIndents();
     }
 
     @Override
@@ -1168,7 +1173,7 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void enterConstructor_command(CSParser.Constructor_commandContext ctx) {
-
+        putIndents();
     }
 
     @Override
