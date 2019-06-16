@@ -10,20 +10,8 @@ public class CSParserListenerImpl implements CSParserListener {
 
     private BufferedWriter writer;
     private int fileSize = 0;
-    private boolean isNamespace = false;
-    private boolean isClassDefinition = false;
-    private boolean isStatic = false;
-    private boolean isFloat = false;
-    private boolean isIdentifier = false;
-    private boolean isConstructor = false;
-    private boolean isMethod = false;
-    private boolean isCall = false;
-    private boolean isParameters = false;
-    private boolean secondParam = false;
-    private boolean isParamedefs = false;
-    private String arithmSign = "";
-    private boolean isArithmetic = false;
     private int indents = 0;
+    private boolean isOriginClass = false;
 
 
     public CSParserListenerImpl(BufferedWriter writer, int size){
@@ -251,7 +239,8 @@ public class CSParserListenerImpl implements CSParserListener {
     public void enterIdentifier_token(CSParser.Identifier_tokenContext ctx) {
 
         try {
-            writer.write(ctx.getText() + " ");
+            writer.write(ctx.getText());
+            if(!isOriginClass) writer.write(" ");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -293,12 +282,6 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void exitTrue_token(CSParser.True_tokenContext ctx) {
-
-        try {
-            writer.write(ctx.getText() + " ");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -582,7 +565,7 @@ public class CSParserListenerImpl implements CSParserListener {
 
         try {
             writer.write(ctx.getText());
-        } catch (IOException e) {
+          } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -1190,7 +1173,11 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void exitConstructor_command(CSParser.Constructor_commandContext ctx) {
-
+        try {
+            writer.write("\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -1240,12 +1227,12 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void enterOrigin_class(CSParser.Origin_classContext ctx) {
-
+        isOriginClass = true;
     }
 
     @Override
     public void exitOrigin_class(CSParser.Origin_classContext ctx) {
-
+        isOriginClass = false;
     }
 
     @Override
