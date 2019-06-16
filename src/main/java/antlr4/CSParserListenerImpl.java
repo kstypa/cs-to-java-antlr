@@ -78,6 +78,7 @@ public class CSParserListenerImpl implements CSParserListener {
     public void enterOpen_brace_token(CSParser.Open_brace_tokenContext ctx) {
 
         try {
+            indents++;
             writer.write(ctx.getText() + "\n");
         } catch (IOException e) {
             e.printStackTrace();
@@ -87,7 +88,7 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void exitOpen_brace_token(CSParser.Open_brace_tokenContext ctx) {
-
+        indents--;
     }
 
     @Override
@@ -202,7 +203,7 @@ public class CSParserListenerImpl implements CSParserListener {
     public void enterDigit_token(CSParser.Digit_tokenContext ctx) {
 
         try {
-            writer.write(ctx.getText() + " ");
+            writer.write(ctx.getText());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -580,7 +581,7 @@ public class CSParserListenerImpl implements CSParserListener {
     public void enterDot_sign(CSParser.Dot_signContext ctx) {
 
         try {
-            writer.write(ctx.getText() + " ");
+            writer.write(ctx.getText());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -965,7 +966,11 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void exitUsing(CSParser.UsingContext ctx) {
-
+        try {
+            writer.write("\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -1015,7 +1020,11 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void exitNumber(CSParser.NumberContext ctx) {
-
+        try {
+            writer.write(" ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -1180,12 +1189,17 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void enterCommand(CSParser.CommandContext ctx) {
+        putIndents();
 
     }
 
     @Override
     public void exitCommand(CSParser.CommandContext ctx) {
-
+        try {
+            writer.write("\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
