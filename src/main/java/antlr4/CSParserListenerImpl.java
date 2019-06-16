@@ -35,7 +35,7 @@ public class CSParserListenerImpl implements CSParserListener {
     public void enterUsing_token(CSParser.Using_tokenContext ctx) {
 
         try {
-            writer.write(ctx.getText() + " ");
+            writer.write("import ");
         } catch (IOException e) {
             e.printStackTrace();
         }

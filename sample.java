@@ -1,9 +1,9 @@
-using System ; 
-using System.Collections.Generic ; 
-using System.Data.SQLite ; 
-using System.Linq ; 
-using System.Threading.Tasks ; 
-using System.Windows.Forms ; 
+import System ; 
+import System.Collections.Generic ; 
+import System.Data.SQLite ; 
+import System.Linq ; 
+import System.Threading.Tasks ; 
+import System.Windows.Forms ; 
 static class Program {
 	static void Main ( ) {
 		Application.EnableVisualStyles ( ) ; 
