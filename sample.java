@@ -36,7 +36,8 @@ class Ffx {
 }
 namespace xd {
 class Bar {
-private int aaa ; public Bar ( int a ) {
+private int aaa ; 
+public Bar ( int a ) {
 aaa = a ; }
 }
 }

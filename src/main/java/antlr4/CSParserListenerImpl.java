@@ -1079,16 +1079,22 @@ public class CSParserListenerImpl implements CSParserListener {
 
     @Override
     public void enterField(CSParser.FieldContext ctx) {
-
+        putIndents();
     }
 
     @Override
     public void exitField(CSParser.FieldContext ctx) {
-
+        try {
+            writer.write("\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void enterDeclaration(CSParser.DeclarationContext ctx) {
+
+
 
     }
 
